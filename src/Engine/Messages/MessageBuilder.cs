@@ -177,6 +177,19 @@ namespace Smuxi.Engine
             return AppendText(textPart);
         }
 
+        public virtual ImageMessagePartModel CreateImage(string path, string alternate = null)
+        {
+            if (String.IsNullOrEmpty(path))
+                throw new ArgumentNullException("path");
+
+            return new ImageMessagePartModel(path, alternate);
+        }
+
+        public virtual MessageBuilder AppendImage(string path, string alternate = null)
+        {
+            return Append(CreateImage(path, alternate));
+        }
+
         public virtual TextMessagePartModel CreateSpace()
         {
             return CreateText(" ");
