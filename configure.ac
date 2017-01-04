@@ -253,6 +253,18 @@ else
 fi
 AM_CONDITIONAL([BUNDLE_NINI], test -n "$nini_files")
 
+AC_ARG_WITH([xammac],
+AC_HELP_STRING([--with-xammac], [Path to the Xamarin.Mac framework @<:@default=/Library/Frameworks/Xamarin.Mac.framework/Versions/Current@:>@]),
+  [],
+  with_xammac=/Library/Frameworks/Xamarin.Mac.framework/Versions/Current
+)
+
+AS_IF([test "x$with_xammac" != "x"], [
+  export PKG_CONFIG_PATH=$with_xammac/lib/pkgconfig/:$PKG_CONFIG_PATH
+  PKG_CHECK_MODULES([XAMMAC], [xammac])
+  AC_SUBST([XAMMAC], $with_xammac)
+])
+
 AC_ARG_WITH([db4o],
 	AC_HELP_STRING([--with-db4o=auto|system|included], [Use system or included db4o @<:@default=auto@:>@]),
 	[],

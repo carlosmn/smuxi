@@ -242,6 +242,9 @@
       <Package>dbus-sharp-glib-2.0</Package>
     </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="Xamarin.Mac">
+      <HintPath>..\..\..\..\..\..\Library\Frameworks\Xamarin.Mac.framework\Versions\2.10.0.120\lib\reference\mobile\Xamarin.Mac.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

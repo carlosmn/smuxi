@@ -303,7 +303,8 @@ dist-linux-debs:
 run: run-gnome
 run-gnome: all
 	if [ "x$(shell uname)" = "xDarwin" ]; then \
-	  export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:/lib:/usr/lib; \
+	  export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:@XAMMAC@/lib:/lib:/usr/lib; \
+	  @XAMMAC@/bin/mmp /verbose /debug /output:$(BUILD_DIR) /name:Smuxi /target-framework=.NETFramework,v4.5 /arch:i386 /minos:10.12 /nolink /sdkroot:/Applications/Xcode.app/Contents/Developer $(BUILD_DIR)/smuxi-frontend-gnome.exe /assembly:@XAMMAC@/lib/reference/full/Xamarin.Mac.dll; \
 	fi; \
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-frontend-gnome.exe -d
