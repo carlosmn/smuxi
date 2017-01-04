@@ -263,6 +263,7 @@ AS_IF([test "x$with_xammac" != "x"], [
   export PKG_CONFIG_PATH=$with_xammac/lib/pkgconfig/:$PKG_CONFIG_PATH
   PKG_CHECK_MODULES([XAMMAC], [xammac])
   AC_SUBST([XAMMAC], $with_xammac)
+  AC_SUBST([XAMMAC_LIBS], "$with_xammac/lib/reference/full/Xamarin.Mac.dll")
 ])
 
 AC_ARG_WITH([db4o],

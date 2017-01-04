@@ -300,11 +300,19 @@ dist-linux-debs:
 		"Building git snapshot."
 	dpkg-buildpackage -b -us -uc
 
+create-osx-app: all
+	@XAMMAC@/bin/mmp /verbose /debug /output:$(BUILD_DIR) /name:Smuxi /target-framework=.NETFramework,v4.5 /arch:i386 /minos:10.12 /nolink /sdkroot:/Applications/Xcode.app/Contents/Developer $(BUILD_DIR)/smuxi-frontend-gnome.exe /assembly:@XAMMAC@/lib/reference/full/Xamarin.Mac.dll \
+	/assembly:$(BUILD_DIR)/smuxi-engine-irc.dll \
+	/native-reference:/Library/Frameworks/Mono.framework/Libraries/libgtksharpglue-2.so \
+	/native-reference:/Library/Frameworks/Mono.framework/Libraries/libglibsharpglue-2.so \
+	/native-reference:/Library/Frameworks/Mono.framework/Libraries/libgdksharpglue-2.so ;\
+	cp $(OSX_LIB_DIR)/Info.plist $(BUILD_DIR)/Smuxi.app/Contents ;\
+	ln -s smuxi-frontend-gnome.exe $(BUILD_DIR)/Smuxi.app/MonoBundle/Smuxi.exe
+
 run: run-gnome
 run-gnome: all
 	if [ "x$(shell uname)" = "xDarwin" ]; then \
 	  export DYLD_FALLBACK_LIBRARY_PATH=/Library/Frameworks/Mono.framework/Versions/Current/lib:@XAMMAC@/lib:/lib:/usr/lib; \
-	  @XAMMAC@/bin/mmp /verbose /debug /output:$(BUILD_DIR) /name:Smuxi /target-framework=.NETFramework,v4.5 /arch:i386 /minos:10.12 /nolink /sdkroot:/Applications/Xcode.app/Contents/Developer $(BUILD_DIR)/smuxi-frontend-gnome.exe /assembly:@XAMMAC@/lib/reference/full/Xamarin.Mac.dll /native-reference:/Library/Frameworks/Mono.framework/Libraries/libgtksharpglue-2.so /native-reference:/Library/Frameworks/Mono.framework/Libraries/libglibsharpglue-2.so; /native-reference:/Library/Frameworks/Mono.framework/Libraries/libgdksharpglue-2.so\
 	fi; \
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-frontend-gnome.exe -d

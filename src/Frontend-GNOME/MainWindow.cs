@@ -29,6 +29,8 @@ using SysDiag = System.Diagnostics;
 using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
+using AppKit;
+using Foundation;
 
 namespace Smuxi.Frontend.Gnome
 {

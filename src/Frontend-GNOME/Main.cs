@@ -26,6 +26,7 @@ using System.Reflection;
 using Gtk.Extensions;
 using NDesk.Options;
 using Smuxi.Common;
+using AppKit;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -39,6 +40,8 @@ namespace Smuxi.Frontend.Gnome
 
         public static void Main(string[] args)
         {
+            NSApplication.Init ();
+
             var debug = false;
             var link = String.Empty;
             var engine = String.Empty;
